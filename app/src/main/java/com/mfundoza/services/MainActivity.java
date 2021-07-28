@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     NotificationManager notificationManager;
     Notification notification;
     Button notificationButton;
+    Button cancelNotificationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,21 @@ public class MainActivity extends AppCompatActivity {
                 createNotificationChannel();
             }
         });
+
+        cancelNotificationButton = (Button) findViewById(R.id.cancelNotificationButton);
+        cancelNotificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancelNotification();
+            }
+        });
     }
 
-    public void createNotification() {
+    private void cancelNotification() {
+        notificationManager.cancelAll();
+    }
+
+    private void createNotification() {
         notification = new NotificationCompat.Builder(this, String.valueOf(CHANNEL_ID))
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Services")
